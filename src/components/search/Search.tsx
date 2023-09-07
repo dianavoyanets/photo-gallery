@@ -16,11 +16,11 @@ export const SearchInput = ({ value, onSearch }: SearchInputProps) => {
   };
 
   return (
-    <div className="relative flex flex-col justify-center items-end overflow-hidden p-6 sm:py-12">
-      <div className="relative">
+    <div className="flex w-full justify-end">
+      <div className="w-full relative md:max-w-[500px]">
         <input
           type="search"
-          className="relative z-10 h-12 w-[500px] cursor-pointer caret-inherit rounded-full border-black border bg-transparent outline-none pl-16 pr-4"
+          className="relative z-10 h-12 cursor-pointer caret-inherit rounded-full border-black border bg-transparent outline-none pl-16 pr-4 w-full"
           value={inputValue}
           onChange={onChangeHandler}
         />

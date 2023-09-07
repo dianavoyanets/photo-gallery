@@ -1,11 +1,11 @@
 import { PhotoCard } from "../photocard/PhotoCard";
 import { Link } from "react-router-dom";
 
-export interface PhotoGaleryProps {
+export interface PhotoGalleryProps {
   photos: Photo[];
 }
 
-export const PhotoGalery = ({ photos }: PhotoGaleryProps) => {
+export const PhotoGallery = ({ photos }: PhotoGalleryProps) => {
   return (
     <div className="grid grid-cols-[repeat(auto-fill,minmax(200px,1fr))] gap-[20px] m-[20px]">
       {photos.map(({ id, title, thumbnailUrl }, index) => {

@@ -1,38 +1,42 @@
 import { PhotoDetail } from "../components/photodetail/PhotoDetail";
-import { usePhotoDetail } from "../hooks/usePhotoDetail";
 import { BackButton } from "../components/backbutton/Button";
 import { Spinner } from "../components/spinner/Spinner";
 import { ErrorMessage } from "../components/errormessage/ErrorMessage";
-import { useParams } from "react-router";
+import { useNavigate, useParams } from "react-router";
 import { useAppDispatch, useAppSelector } from "../redux/hooks";
-import { toggleFavorite } from "../redux/features/favouritesPhotoSlice";
+import { toggleFavourite } from "../redux/features/favouritesPhotoSlice";
+import { useGetPhotoByIdQuery } from "../redux/services/photoGalleryApi";
 
 export const PhotoDetailsPage = () => {
-  const dispatch = useAppDispatch();
-  const { favoritePhotoIds } = useAppSelector((state) => state.favouritesPhoto);
-
+  const navigate = useNavigate();
   const { id } = useParams();
 
-  const { photo, isLoading, error } = usePhotoDetail(id);
-  const { albumId, url, title } = { ...photo };
-  const isFavourite = favoritePhotoIds.includes(id);
+  const dispatch = useAppDispatch();
+  const { favouritePhotoIds } = useAppSelector(
+    (state) => state.favouritesPhoto
+  );
 
-  const onFavoriteToggle = (photoId: string) => {
-    dispatch(toggleFavorite(photoId));
+  const { error, isLoading, data: photo } = useGetPhotoByIdQuery(id);
+
+  const onFavouriteToggle = (photoId: string) => {
+    dispatch(toggleFavourite(photoId));
   };
 
   return (
     <div className="flex flex-col justify-center items-center">
-      <BackButton link="/" buttonText="Back" />
+      <div className="flex px-6 py-8 self-start">
+        <BackButton buttonText="Back" onClickHandler={() => navigate(-1)} />
+      </div>
       {isLoading && <Spinner />}
-      {error && <ErrorMessage message={error} />}
+      {error && <ErrorMessage message={error.message} />}
+      <div className="flex flex-1" />
       {photo && !isLoading && (
         <PhotoDetail
-          albumId={albumId}
-          url={url}
-          title={title}
-          isFavorite={isFavourite}
-          onFavoriteToggle={() => onFavoriteToggle(id)}
+          albumId={photo.albumId}
+          url={photo.url}
+          title={photo.title}
+          isFavourite={favouritePhotoIds.includes(id)}
+          onFavouriteToggle={() => onFavouriteToggle(id)}
         />
       )}
     </div>

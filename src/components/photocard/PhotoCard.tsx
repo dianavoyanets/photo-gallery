@@ -11,7 +11,7 @@ export const PhotoCard = ({ title, url }: PhotoItemProps) => {
           src={url}
           loading="lazy"
           decoding="async"
-          className="h-auto max-w-full max-h-[200px] min-w-[150px] min-h-[150px] object-contain"
+          className="h-auto max-w-full min-w-[150px] min-h-[150px] object-contain"
           alt={title}
         />
         <h4 className="font-semibold text-base text-black mx-4 mt-2 mb-4">

@@ -5,7 +5,7 @@ export interface InfiniteLoaderProps {
   threshold?: `${string}px`;
   hasMore: boolean;
   isLoading: boolean;
-  onLoadMore: () => Promise<unknown>;
+  onLoadMore: () => void;
 }
 
 export const InfiniteLoader = ({

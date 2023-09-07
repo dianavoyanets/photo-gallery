@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { FavoriteButton } from "./favoritebutton/FavoriteButton";
+import { FavouriteButton } from "./favouritebutton/FavouriteButton";
 import { useState } from "react";
 import { Spinner } from "../spinner/Spinner";
 
@@ -7,16 +7,16 @@ export interface PhotoDetailProps {
   albumId: number;
   url: string;
   title: string;
-  isFavorite: boolean;
-  onFavoriteToggle: (id: string) => void;
+  isFavourite: boolean;
+  onFavouriteToggle: (id: string) => void;
 }
 
 export const PhotoDetail = ({
   albumId,
   url,
   title,
-  isFavorite,
-  onFavoriteToggle,
+  isFavourite,
+  onFavouriteToggle,
 }: PhotoDetailProps) => {
   const [isLoading, setLoading] = useState(true);
 
@@ -33,7 +33,7 @@ export const PhotoDetail = ({
           loading="lazy"
           decoding="async"
           onLoad={imageLoaded}
-          className="w-full min-w-[600px] min-h-[600px]"
+          className="w-full"
           alt={title}
         />
         <Link
@@ -44,9 +44,9 @@ export const PhotoDetail = ({
         </Link>
         <h4 className="font-semibold text-base mx-4 mt-2 mb-4">{title}</h4>
         <div className="flex items-center justify-between mx-4 mt-3 mb-3">
-          <FavoriteButton
-            isFavorite={isFavorite}
-            onFavoriteToggle={onFavoriteToggle}
+          <FavouriteButton
+            isFavourite={isFavourite}
+            onFavouriteToggle={onFavouriteToggle}
           />
         </div>
       </div>

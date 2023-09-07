@@ -1,38 +1,21 @@
-import { PhotoGalery } from "../components/galery/Galery";
-import { SearchInput } from "../components/search/Search";
-import { usePhotoGalery } from "../hooks/usePhotoGalery";
-import { NoResults } from "../components/noresults/NoResults";
-import { ErrorMessage } from "../components/errormessage/ErrorMessage";
-import { InfiniteLoader } from "../components/infinityloader/InfinityLoader";
-import { Spinner } from "../components/spinner/Spinner";
 import { useParams } from "react-router";
+import { GalleryContainer } from "./GalleryContainer";
+import { defaultCategories } from "../constants";
+import { usePhotoGallery } from "../hooks/usePhotoGallery";
 
 export const AlbumPage = () => {
   const { albumId } = useParams();
 
-  const {
-    error,
-    hasMore,
-    isLoading,
-    photos,
-    searchTerm,
-    onLoadMore,
-    onSearch,
-  } = usePhotoGalery({ albumId });
+  const categories = [
+    ...defaultCategories,
+    {
+      id: "album",
+      value: `#${albumId} Album`,
+      route: `/album/${albumId}`,
+    },
+  ];
 
-  return (
-    <>
-      <SearchInput value={searchTerm} onSearch={onSearch} />
-      {searchTerm && !photos.length && !isLoading && !error && <NoResults />}
-      {error && <ErrorMessage message={error} />}
-      {isLoading && <Spinner />}
-      <InfiniteLoader
-        isLoading={isLoading}
-        hasMore={hasMore}
-        onLoadMore={onLoadMore}
-      >
-        <PhotoGalery photos={photos} />
-      </InfiniteLoader>
-    </>
-  );
+  const photoGallery = usePhotoGallery({ albumId });
+
+  return <GalleryContainer {...photoGallery} categories={categories} />;
 };

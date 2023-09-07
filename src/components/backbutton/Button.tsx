@@ -1,21 +1,25 @@
-import { Link } from "react-router-dom";
 import ArrowIcon from "../../assets/ic_arrow.svg";
 
 export interface BackButtonProps {
-  link: string;
+  onClickHandler: () => void;
   buttonText: string;
+  className: string;
 }
 
-export const BackButton = ({ link, buttonText }: BackButtonProps) => {
+export const BackButton = ({
+  onClickHandler,
+  buttonText,
+  className,
+}: BackButtonProps) => {
   return (
-    <div className="relative mx-auto w-full cursor-pointer px-4 md:px-[34px] mb-2 max-w-[790px] lg:max-w-[1440px] xl:mt-16">
-      <Link
-        className="text-base flex h-8 w-fit items-center gap-x-2 font-semibold uppercase text-black md:-ml-[5px] lg:relative"
-        to={link}
-      >
+    <div
+      className={`flex justify-center items-center cursor-pointer pr-4 mb-2 ${className}`}
+      onClick={onClickHandler}
+    >
+      <div className="text-base flex h-8 items-center gap-x-2 font-semibold uppercase text-black">
         <img src={ArrowIcon} alt="arrow-icon" />
         {buttonText}
-      </Link>
+      </div>
     </div>
   );
 };

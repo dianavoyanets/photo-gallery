@@ -1,13 +1,13 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-const STORAGE_KEY = "favoritePhotoIds";
+const STORAGE_KEY = "favouritePhotoIds";
 
 interface FavouritesPhotoState {
-  favoritePhotoIds: string[];
+  favouritePhotoIds: string[];
 }
 
 const initialState: FavouritesPhotoState = {
-  favoritePhotoIds: JSON.parse(
+  favouritePhotoIds: JSON.parse(
     window.localStorage.getItem(STORAGE_KEY) || "[]"
   ),
 };
@@ -16,22 +16,22 @@ export const favouritesPhotoSlice = createSlice({
   name: "favouritesPhoto",
   initialState,
   reducers: {
-    toggleFavorite: (state, action: PayloadAction<string>) => {
-      if (!state.favoritePhotoIds.includes(action.payload)) {
-        state.favoritePhotoIds.push(action.payload);
+    toggleFavourite: (state, action: PayloadAction<string>) => {
+      if (!state.favouritePhotoIds.includes(action.payload)) {
+        state.favouritePhotoIds.push(action.payload);
       } else {
-        state.favoritePhotoIds = state.favoritePhotoIds.filter(
+        state.favouritePhotoIds = state.favouritePhotoIds.filter(
           (id) => id !== action.payload
         );
       }
 
       window.localStorage.setItem(
         STORAGE_KEY,
-        JSON.stringify(state.favoritePhotoIds)
+        JSON.stringify(state.favouritePhotoIds)
       );
     },
   },
 });
 
-export const { toggleFavorite } = favouritesPhotoSlice.actions;
+export const { toggleFavourite } = favouritesPhotoSlice.actions;
 export default favouritesPhotoSlice.reducer;

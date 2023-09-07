@@ -5,10 +5,6 @@ export const NoResults = () => {
         <h2 className="font-cal leading-[100%] md:!leading-h1 text-[40px] md:text-5xl lg:text-[50px] xl:text-6xl">
           No results found.
         </h2>
-        <p className="text-[#727272]">
-          No content matched your criteria. <br /> Try searching for something
-          else.
-        </p>
       </div>
     </div>
   );
