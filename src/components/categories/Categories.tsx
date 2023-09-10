@@ -9,16 +9,17 @@ export const Categories = ({ categories }: CategoriesProps) => {
   const location = useLocation();
 
   return (
-    <div className="flex justify-between gap-y-14 w-[100vw]">
-      <div className="flex gap-x-4 gap-y-2 overflow-x-auto pb-5">
+    <nav className="flex justify-between gap-y-14 w-[100vw]">
+      <ul className="flex gap-x-4 gap-y-2 overflow-x-auto pb-5">
         {categories.map((category) => (
-          <CategoryItem
-            key={category.id}
-            {...category}
-            isActive={location.pathname === category.route}
-          />
+          <li key={category.id}>
+            <CategoryItem
+              {...category}
+              isActive={location.pathname === category.route}
+            />
+          </li>
         ))}
-      </div>
-    </div>
+      </ul>
+    </nav>
   );
 };

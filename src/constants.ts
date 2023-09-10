@@ -1,4 +1,4 @@
-import type { Category } from "./components/categoryitem/CategoryItem";
+import type { Category } from "./components/categoryitem/types";
 
 export const defaultCategories: Category[] = [
   { id: "all", value: "All", route: "/" },

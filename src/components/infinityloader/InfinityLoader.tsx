@@ -2,7 +2,7 @@ import React, { useRef, useEffect } from "react";
 
 export interface InfiniteLoaderProps {
   children: React.ReactElement;
-  threshold?: `${string}px`;
+  rootMargin?: `${string}px`;
   hasMore: boolean;
   isLoading: boolean;
   onLoadMore: () => void;
@@ -10,7 +10,7 @@ export interface InfiniteLoaderProps {
 
 export const InfiniteLoader = ({
   children,
-  threshold = "500px",
+  rootMargin = "500px",
   hasMore,
   isLoading,
   onLoadMore,
@@ -25,7 +25,7 @@ export const InfiniteLoader = ({
         }
       },
       {
-        rootMargin: `0px 0px ${threshold} 0px`,
+        rootMargin: `0px 0px ${rootMargin} 0px`,
       }
     );
 
@@ -36,7 +36,7 @@ export const InfiniteLoader = ({
     return () => {
       observer.disconnect();
     };
-  }, [hasMore, isLoading, threshold, onLoadMore]);
+  }, [hasMore, isLoading, rootMargin, onLoadMore]);
 
   return (
     <>

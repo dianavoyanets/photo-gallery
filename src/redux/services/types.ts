@@ -11,3 +11,9 @@ export interface Photo {
   url: string;
   thumbnailUrl: string;
 }
+
+export interface Album {
+  id: number;
+  title: string;
+  userId: number;
+}

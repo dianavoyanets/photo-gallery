@@ -1,10 +1,4 @@
-import { Link } from "react-router-dom";
-
-export interface Category {
-  id: number;
-  value: number;
-  route: string;
-}
+import { NavLink } from "react-router-dom";
 
 export interface CategoryItemProps {
   value: string;
@@ -14,7 +8,7 @@ export interface CategoryItemProps {
 
 export const CategoryItem = ({ value, route, isActive }: CategoryItemProps) => {
   return (
-    <Link to={route}>
+    <NavLink to={route}>
       <span
         className={`border-black rounded-3xl font-matter  ${
           isActive ? "text-white" : "text-black"
@@ -24,6 +18,6 @@ export const CategoryItem = ({ value, route, isActive }: CategoryItemProps) => {
       >
         {value}
       </span>
-    </Link>
+    </NavLink>
   );
 };

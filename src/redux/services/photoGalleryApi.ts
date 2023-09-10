@@ -58,6 +58,9 @@ export const photoGalleryApi = createApi({
     getPhotoById: builder.query<Photo, number>({
       query: (id) => `photos/${id}`,
     }),
+    getAlbums: builder.query<Album[]>({
+      query: () => "/albums",
+    }),
   }),
 });
 
@@ -84,4 +87,5 @@ const buildQueryString = (params: QueryParams): string => {
   return queryString;
 };
 
-export const { useGetPhotosQuery, useGetPhotoByIdQuery } = photoGalleryApi;
+export const { useGetPhotosQuery, useGetPhotoByIdQuery, useGetAlbumsQuery } =
+  photoGalleryApi;

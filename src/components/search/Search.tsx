@@ -20,6 +20,9 @@ export const SearchInput = ({ value, onSearch }: SearchInputProps) => {
       <div className="w-full relative md:max-w-[500px]">
         <input
           type="search"
+          placeholder="Search"
+          name="search"
+          id="search"
           className="relative z-10 h-12 cursor-pointer caret-inherit rounded-full border-black border bg-transparent outline-none pl-16 pr-4 w-full"
           value={inputValue}
           onChange={onChangeHandler}

@@ -1,21 +1,7 @@
 import { useParams } from "react-router";
-import { GalleryContainer } from "./GalleryContainer";
-import { defaultCategories } from "../constants";
-import { usePhotoGallery } from "../hooks/usePhotoGallery";
+import { PhotoGalleryContainer } from "./PhotoGalleryContainer";
 
 export const AlbumPage = () => {
-  const { albumId } = useParams();
-
-  const categories = [
-    ...defaultCategories,
-    {
-      id: "album",
-      value: `#${albumId} Album`,
-      route: `/album/${albumId}`,
-    },
-  ];
-
-  const photoGallery = usePhotoGallery({ albumId });
-
-  return <GalleryContainer {...photoGallery} categories={categories} />;
+  const { albumId } = useParams<{ albumId: number }>();
+  return <PhotoGalleryContainer albumId={albumId} />;
 };

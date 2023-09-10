@@ -40,7 +40,7 @@ export const PhotoDetail = ({
           to={`/album/${albumId}`}
           className="w-fit bg-blue-100 text-black text-sm font-medium mx-4 my-4 px-2.5 py-2.5 rounded dark:bg-blue-900 dark:text-blue-300 hover:opacity-[0.8]"
         >
-          Album - {albumId}
+          #{albumId} Album
         </Link>
         <h4 className="font-semibold text-base mx-4 mt-2 mb-4">{title}</h4>
         <div className="flex items-center justify-between mx-4 mt-3 mb-3">

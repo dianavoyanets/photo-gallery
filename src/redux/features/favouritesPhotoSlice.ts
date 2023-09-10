@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-const STORAGE_KEY = "favouritePhotoIds";
+const STORAGE_KEY: string = "favouritePhotoIds";
 
 interface FavouritesPhotoState {
   favouritePhotoIds: string[];
@@ -16,7 +16,7 @@ export const favouritesPhotoSlice = createSlice({
   name: "favouritesPhoto",
   initialState,
   reducers: {
-    toggleFavourite: (state, action: PayloadAction<string>) => {
+    toggleFavourite: (state, action: PayloadAction<number>) => {
       if (!state.favouritePhotoIds.includes(action.payload)) {
         state.favouritePhotoIds.push(action.payload);
       } else {

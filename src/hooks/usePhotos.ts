@@ -2,14 +2,16 @@ import { useEffect, useState } from "react";
 import { useQuery } from "./useQuery";
 import { debounce } from "lodash";
 import { useGetPhotosQuery } from "../redux/services/photoGalleryApi";
+import { useNavigate } from "react-router";
 
-export interface UsePhotoGalleryOptions {
-  albumId?: string;
+export interface UsePhotosOptions {
+  albumId?: number;
   photoIds?: string[];
 }
 
-export const usePhotoGallery = (options: UsePhotoGalleryOptions) => {
+export const usePhotos = (options: UsePhotosOptions) => {
   const searchQuery = useQuery().get("search");
+  const navigate = useNavigate();
 
   const [searchTerm, setSearchTerm] = useState<string>(searchQuery);
   const [page, setPage] = useState(1);
@@ -17,7 +19,7 @@ export const usePhotoGallery = (options: UsePhotoGalleryOptions) => {
 
   const queryParams = {
     title_like: searchTerm?.trim(),
-    albumId: options?.albumId?.trim(),
+    albumId: options?.albumId,
     id: options?.photoIds?.slice((page - 1) * 10, (page - 1) * 10 + 10),
   };
 
@@ -45,9 +47,9 @@ export const usePhotoGallery = (options: UsePhotoGalleryOptions) => {
   const onSearch: void = debounce((newSearchTerm) => {
     setSearchTerm(newSearchTerm);
     if (newSearchTerm) {
-      window.history.pushState({}, undefined, `?search=${newSearchTerm}`);
+      navigate(`?search=${newSearchTerm}`, { replace: true });
     } else {
-      window.history.pushState({}, undefined, "/");
+      navigate("/", { replace: true });
     }
   }, 250);
 
