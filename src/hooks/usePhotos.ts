@@ -1,57 +1,45 @@
-import { useEffect, useState } from "react";
-import { useQuery } from "./useQuery";
-import { debounce } from "lodash";
+import { Dispatch, SetStateAction, useEffect, useState } from "react";
 import { useGetPhotosQuery } from "../redux/services/photoGalleryApi";
-import { useNavigate } from "react-router";
 
 export interface UsePhotosOptions {
-  albumId?: number;
+  title?: string;
+  albumId?: string;
   photoIds?: string[];
+  page: number;
+  setPage: Dispatch<SetStateAction<number>>;
 }
 
-export const usePhotos = (options: UsePhotosOptions) => {
-  const searchQuery = useQuery().get("search");
-  const navigate = useNavigate();
-
-  const [searchTerm, setSearchTerm] = useState<string>(searchQuery);
-  const [page, setPage] = useState(1);
+export const usePhotos = ({
+  title,
+  albumId,
+  photoIds,
+  page,
+  setPage,
+}: UsePhotosOptions) => {
   const [hasMore, setHasMore] = useState(true);
-
-  const queryParams = {
-    title_like: searchTerm?.trim(),
-    albumId: options?.albumId,
-    id: options?.photoIds?.slice((page - 1) * 10, (page - 1) * 10 + 10),
-  };
 
   const { data, error, isLoading, isFetching } = useGetPhotosQuery({
     page,
-    queryParams: queryParams,
+    title,
+    albumId,
+    photoIds,
   });
 
   useEffect(() => {
     setPage(1);
     setHasMore(true);
-  }, [searchTerm]);
+  }, [title, albumId, photoIds]);
 
   const onLoadMore = () => {
     if (isLoading || isFetching || error) return;
 
-    if (data?.totalPages > page) {
-      setPage((prev) => prev + 1);
+    if (data && data?.totalPages > page) {
+      setPage(page + 1);
       setHasMore(true);
     } else {
       setHasMore(false);
     }
   };
-
-  const onSearch: void = debounce((newSearchTerm) => {
-    setSearchTerm(newSearchTerm);
-    if (newSearchTerm) {
-      navigate(`?search=${newSearchTerm}`, { replace: true });
-    } else {
-      navigate("/", { replace: true });
-    }
-  }, 250);
 
   return {
     error,
@@ -59,8 +47,6 @@ export const usePhotos = (options: UsePhotosOptions) => {
     isLoading,
     isFetching,
     photos: data?.photos || [],
-    searchTerm,
     onLoadMore,
-    onSearch,
   };
 };

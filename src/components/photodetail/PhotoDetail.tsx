@@ -4,7 +4,7 @@ import { useState } from "react";
 import { Spinner } from "../spinner/Spinner";
 
 export interface PhotoDetailProps {
-  albumId: number;
+  albumId: string;
   url: string;
   title: string;
   isFavourite: boolean;

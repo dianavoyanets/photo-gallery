@@ -1,16 +1,15 @@
-import { ChangeEvent, useState } from "react";
+import { useState } from "react";
 import SearchIcon from "../../assets/ic_search.svg";
 
 export interface SearchInputProps {
-  value: string;
-  onSearch: (event: ChangeEvent<HTMLInputElement>) => void;
+  value?: string;
+  onSearch: (value: string) => void;
 }
 
 export const SearchInput = ({ value, onSearch }: SearchInputProps) => {
   const [inputValue, setInputValue] = useState(value || "");
 
-  const onChangeHandler = (event: ChangeEvent<HTMLInputElement>) => {
-    const newValue = event.target.value;
+  const onChangeHandler = (newValue: string) => {
     setInputValue(newValue);
     onSearch(newValue);
   };
@@ -25,7 +24,7 @@ export const SearchInput = ({ value, onSearch }: SearchInputProps) => {
           id="search"
           className="relative z-10 h-12 cursor-pointer caret-inherit rounded-full border-black border bg-transparent outline-none pl-16 pr-4 w-full"
           value={inputValue}
-          onChange={onChangeHandler}
+          onChange={(event) => onChangeHandler(event.target.value)}
         />
         <img
           src={SearchIcon}

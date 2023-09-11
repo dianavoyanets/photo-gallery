@@ -1,3 +1,4 @@
+import { Photo } from "../../redux/services/types";
 import { PhotoCard } from "../photocard/PhotoCard";
 import { Link } from "react-router-dom";
 

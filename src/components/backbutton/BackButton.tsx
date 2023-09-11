@@ -3,7 +3,7 @@ import ArrowIcon from "../../assets/ic_arrow.svg";
 
 export interface BackButtonProps {
   buttonText: string;
-  className: string;
+  className?: string;
 }
 
 export const BackButton = ({ buttonText, className }: BackButtonProps) => {

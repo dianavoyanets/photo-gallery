@@ -12,7 +12,7 @@ export const FavouriteButton = ({
 }: FavouriteButtonProps) => {
   return (
     <button
-      onClick={onFavouriteToggle}
+      onClick={(event) => onFavouriteToggle(event.currentTarget.value)}
       className={`hover:scale-110 duration-[100ms] ease-in-out`}
     >
       <img src={isFavourite ? ActiveHeartIcon : HeartIcon} alt="icon" />

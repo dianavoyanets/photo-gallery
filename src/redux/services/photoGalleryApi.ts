@@ -1,15 +1,17 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-import { Photo, ListPhoto } from "./types";
+import { Photo, ListPhoto, Album } from "./types";
+
+export interface GetPhotosQueryArgs {
+  title?: string;
+  albumId?: string;
+  photoIds?: string[];
+  page: number;
+  limit?: number;
+}
 
 type QueryParams = {
   [key: string]: string | string[] | number | number[] | undefined;
 };
-
-export interface GetPhotosQueryOptions {
-  queryParams: QueryParams;
-  page: number;
-  limit?: number;
-}
 
 export const photoGalleryApi = createApi({
   reducerPath: "photoGalleryApi",
@@ -17,12 +19,14 @@ export const photoGalleryApi = createApi({
     baseUrl: import.meta.env.VITE_BASE_API_URL,
   }),
   endpoints: (builder) => ({
-    getPhotos: builder.query<ListPhoto, GetPhotosQueryOptions>({
-      query: ({ page, limit = 20, queryParams }) => {
+    getPhotos: builder.query<ListPhoto, GetPhotosQueryArgs>({
+      query: ({ page, limit = 20, title, albumId, photoIds }) => {
         const queryString = buildQueryString({
-          ...queryParams,
-          _page: page,
+          page,
           _limit: limit,
+          title_like: title?.trim(),
+          albumId,
+          id: photoIds?.slice((page - 1) * limit, (page - 1) * limit + limit),
         });
 
         return `photos?${queryString}`;
@@ -48,17 +52,16 @@ export const photoGalleryApi = createApi({
           return newItems;
         } else {
           currentCache?.photos.push(...(newItems?.photos || []));
-          return currentCache;
         }
       },
-      forceRefetch: ({ currentArg, previousArg }) => {
+      forceRefetch({ currentArg, previousArg }) {
         return currentArg !== previousArg;
       },
     }),
-    getPhotoById: builder.query<Photo, number>({
+    getPhotoById: builder.query<Photo, string>({
       query: (id) => `photos/${id}`,
     }),
-    getAlbums: builder.query<Album[]>({
+    getAlbums: builder.query<Album[], void>({
       query: () => "/albums",
     }),
   }),

@@ -10,7 +10,7 @@ export interface InfiniteLoaderProps {
 
 export const InfiniteLoader = ({
   children,
-  rootMargin = "500px",
+  rootMargin = "100px",
   hasMore,
   isLoading,
   onLoadMore,

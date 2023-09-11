@@ -1,4 +1,4 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 
 const STORAGE_KEY: string = "favouritePhotoIds";
 
@@ -16,7 +16,7 @@ export const favouritesPhotoSlice = createSlice({
   name: "favouritesPhoto",
   initialState,
   reducers: {
-    toggleFavourite: (state, action: PayloadAction<number>) => {
+    toggleFavourite: (state, action: PayloadAction<string>) => {
       if (!state.favouritePhotoIds.includes(action.payload)) {
         state.favouritePhotoIds.push(action.payload);
       } else {

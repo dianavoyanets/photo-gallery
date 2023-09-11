@@ -5,15 +5,15 @@ export interface ListPhoto {
 }
 
 export interface Photo {
-  albumId: number;
-  id: number;
+  albumId: string;
+  id: string;
   title: string;
   url: string;
   thumbnailUrl: string;
 }
 
 export interface Album {
-  id: number;
+  id: string;
   title: string;
-  userId: number;
+  userId: string;
 }

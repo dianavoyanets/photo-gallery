@@ -1,42 +1,38 @@
 import Select from "react-select";
+import type { SingleValue } from "react-select";
 
 export interface ComboboxProps {
-  label: string;
   placeholder: string;
   options: ComboboxOption[];
   value?: ComboboxOption;
   error?: string;
-  onChangeHandler: (selectedOption: ComboboxOption) => void;
+  onChangeHandler: (selectedOption: ComboboxOption | null) => void;
 }
 
 export interface ComboboxOption {
-  value: number;
+  value: string;
   label: string;
 }
 
 export const Combobox = ({
-  label,
   placeholder,
   options,
   value,
   onChangeHandler,
 }: ComboboxProps) => {
   return (
-    <div className="flex justify-end gap-2">
-      <label
-        htmlFor={label.toLowerCase()}
-        className="self-center block text-sm font-medium text-gray-900"
-      >
-        {label}
-      </label>
+    <div className="flex flex-col justify-end gap-2 w-full">
       <Select
-        id={label.toLowerCase()}
-        name={label.toLowerCase()}
         placeholder={placeholder}
         options={options}
         value={value}
-        onChange={onChangeHandler}
-        className="w-full"
+        onChange={(option: SingleValue<ComboboxOption>) =>
+          onChangeHandler(option)
+        }
+        className="md:!max-w-[300px]"
+        classNames={{
+          control: () => "!rounded-3xl !border-black !h-12",
+        }}
       />
     </div>
   );
