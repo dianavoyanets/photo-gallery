@@ -78,7 +78,10 @@ export const PhotoGalleryContainer = ({
   useEffect(() => {
     if (albums && albums.length > 0) {
       const options = albums.map(({ id, title }) => {
-        return { value: id, label: `#${id} ${title}` } as ComboboxOption;
+        return {
+          value: id.toString(),
+          label: `#${id} ${title}`,
+        } as ComboboxOption;
       });
       setAlbumOptions(options);
 

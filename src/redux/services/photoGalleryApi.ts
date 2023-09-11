@@ -22,7 +22,7 @@ export const photoGalleryApi = createApi({
     getPhotos: builder.query<ListPhoto, GetPhotosQueryArgs>({
       query: ({ page, limit = 20, title, albumId, photoIds }) => {
         const queryString = buildQueryString({
-          page,
+          _page: page,
           _limit: limit,
           title_like: title?.trim(),
           albumId,
